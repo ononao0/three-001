@@ -42,7 +42,7 @@
         far: 100.0,
         x: 0.0,
         y: 2.0,
-        z: 10.0,
+        z: 15.0,
         lookAt: new THREE.Vector3(0.0, 0.0, 0.0),
     };
     // レンダラに関するパラメータ
@@ -96,7 +96,7 @@
 
         boxArray = [];
         let step = 1,
-            num = 3;
+            num = 5;
         for (let x = 0; x <= num; x++) {
             for (let y = 0; y <= num; y++) {
                 for (let z = 0; z <= num; z ++) {
