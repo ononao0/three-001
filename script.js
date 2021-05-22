@@ -17,6 +17,12 @@
         init();
         render();
         keyEvent();
+
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        }, false);
     }, false);
 
     // three.js に関連するオブジェクト用の変数
@@ -33,6 +39,8 @@
     let boxArray;
     let orgBoxArray;
     let mathMax = 3;
+    let time = 0;
+    let speed = 1;
 
     // カメラに関するパラメータ
     const CAMERA_PARAM = {
@@ -178,7 +186,13 @@
     }
 
     function render(){
+        time += 0.5;
         requestAnimationFrame(render)
+
+        const radian = time * Math.PI / 180;
+        camera.position.x = 10 * Math.sin(radian * speed);
+        camera.position.z = 10 * Math.cos(radian  * speed);
+        camera.position.y = 10 * Math.cos(radian  * speed);
         // 描画
         controls.update();
         renderer.render(scene, camera);
