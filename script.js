@@ -37,10 +37,8 @@
     let directionalLight; // ディレクショナル・ライト（平行光源）
     let ambientLight;     // アンビエントライト（環境光） @@@
     let boxArray;
-    let orgBoxArray;
     let mathMax = 3;
     let time = 0;
-    let speed = 1;
 
     // カメラに関するパラメータ
     const CAMERA_PARAM = {
@@ -119,13 +117,6 @@
                 }
             }
         }
-        orgBoxArray = boxArray.map((box) => {
-            return {
-                x: box.position.x,
-                y: box.position.y,
-                z: box.position.z,
-            }
-        })
 
         // ディレクショナルライト
         directionalLight = new THREE.DirectionalLight(
@@ -161,11 +152,11 @@
     function keyEvent() {
         window.addEventListener('keydown', (event) => {
             if (event.key === ' ') {
-                boxArray.forEach((box, i) => {
+                boxArray.forEach((box) => {
                     gsap.to(box.position, {
-                        x: Math.max(Math.min(orgBoxArray[i].x * mathMax), orgBoxArray[i].x * mathMax),
-                        y: Math.max(Math.min(orgBoxArray[i].y * mathMax), orgBoxArray[i].y * mathMax),
-                        z: Math.max(Math.min(orgBoxArray[i].z * mathMax), orgBoxArray[i].z * mathMax),
+                        x: Math.max(Math.min(box.position.x * mathMax), box.position.x * mathMax),
+                        y: Math.max(Math.min(box.position.y * mathMax), box.position.y * mathMax),
+                        z: Math.max(Math.min(box.position.z * mathMax), box.position.z * mathMax),
                         duration: 0.4,
                         ease: 'Power3.easeInOut',
                     })
@@ -190,9 +181,9 @@
         requestAnimationFrame(render)
 
         const radian = time * Math.PI / 180;
-        camera.position.x = 10 * Math.sin(radian * speed);
-        camera.position.z = 10 * Math.cos(radian  * speed);
-        camera.position.y = 10 * Math.cos(radian  * speed);
+        camera.position.x = 10 * Math.sin(radian);
+        camera.position.z = 10 * Math.cos(radian);
+        camera.position.y = 10 * Math.cos(radian);
         // 描画
         controls.update();
         renderer.render(scene, camera);
