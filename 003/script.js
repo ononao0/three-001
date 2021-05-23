@@ -22,6 +22,7 @@
     let axesHelper; // 軸ヘルパーメッシュ
     let ambientLight;     // アンビエントライト（環境光） @@@
     let boxArray;
+    let wrapper;
 
     const mouse = new THREE.Vector2();
     const raycaster = new THREE.Raycaster();
@@ -70,7 +71,7 @@
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(new THREE.Color(RENDERER_PARAM.clearColor));
         renderer.setSize(RENDERER_PARAM.width, RENDERER_PARAM.height);
-        const wrapper = document.querySelector('#webgl');
+        wrapper = document.querySelector('#webgl');
         wrapper.appendChild(renderer.domElement);
 
         // カメラ
@@ -109,8 +110,8 @@
         scene.add(ambientLight);
 
         // 軸ヘルパー
-        axesHelper = new THREE.AxesHelper(5.0);
-        scene.add(axesHelper);
+        // axesHelper = new THREE.AxesHelper(5.0);
+        // scene.add(axesHelper);
     }
 
     function onDocumentMouseMove(event) {
@@ -126,8 +127,9 @@
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(boxArray);
         boxArray[0].material.color.setHex(0xff0000);
-        boxArray.map((box, i) => {
+        boxArray.forEach((box) => {
             if (intersects.length > 0 && box === intersects[0].object) {
+                wrapper.style.cursor = 'pointer'
                 box.material.color.setHex(0xff0000);
                 box.rotation.x += box.dx * 10
                 box.rotation.y += box.dy * 10
@@ -137,6 +139,9 @@
                 box.material.color.setHex(0xffffff);
             }
         });
+        if (intersects.length <= 0) {
+            wrapper.style.cursor = 'auto'
+        }
         renderer.render(scene, camera);
     }
 })();
