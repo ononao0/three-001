@@ -93,7 +93,8 @@
 
         const MATERIAL_PARAM = {
             color: 0xffffff,
-            map: texture
+            map: texture,
+            wireframe: true
         }
 
         let ox, oy;
@@ -107,12 +108,10 @@
                 ox = x;
                 oy = y;
 
-                geometry = new THREE.BoxGeometry(1, 1, 1);
+                geometry = new THREE.BoxGeometry(1, 1, 1, 10, 10, 10);
                 material = new THREE.MeshLambertMaterial(MATERIAL_PARAM);
                 material.hue = x / xgrid;
                 material.saturation = 1 - y / ygrid;
-
-                console.log(geometry)
 
                 change_uvs( geometry, ux, uy, ox, oy );
 
