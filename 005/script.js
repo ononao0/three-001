@@ -163,13 +163,16 @@
         const intersects = raycaster.intersectObjects(boxArray);
         boxArray[0].material.color.setHex(0xff0000);
         boxArray.forEach((box) => {
-            box.rotation.x += box.dx
-            box.rotation.y += box.dy
+            if (box.touched !== true) {
+                box.rotation.x += box.dx
+                box.rotation.y += box.dy
+            }
             if (intersects.length > 0 && box === intersects[0].object) {
                 wrapper.style.cursor = 'pointer'
                 box.material.color.setHex(0xff0000);
                 box.rotation.x = 0
                 box.rotation.y = 0
+                box.touched = true
             } else {
                 box.material.color.setHex(0xffffff);
             }
