@@ -110,12 +110,8 @@
 
                 geometry = new THREE.BoxGeometry(1, 1, 1, 10, 10, 10);
                 material = new THREE.MeshLambertMaterial(MATERIAL_PARAM);
-                material.hue = x / xgrid;
-                material.saturation = 1 - y / ygrid;
 
                 change_uvs( geometry, ux, uy, ox, oy );
-
-                material.color.setHSL( material.hue, material.saturation, 0.5 )
                 box = new THREE.Mesh(geometry, material);
                 box.position.set(
                     (x - xgrid / 2) * 1,
