@@ -136,6 +136,7 @@
         // 軸ヘルパー
         // axesHelper = new THREE.AxesHelper(5.0);
         // scene.add(axesHelper);
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 
     function onDocumentMouseMove(event) {
@@ -179,6 +180,7 @@
         if (intersects.length <= 0) {
             wrapper.style.cursor = 'auto'
         }
+        controls.update();
         renderer.render(scene, camera);
     }
 })();
