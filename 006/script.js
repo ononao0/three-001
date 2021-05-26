@@ -31,7 +31,7 @@
         wrapper,
         edges,
         line,
-        group,
+        groups = new Array(2),
         glitchPass,
         time = 0;
 
@@ -106,11 +106,9 @@
         planeMesh.position.y = -2.5
         scene.add(planeMesh)
 
-        group = new THREE.Group();
-        scene.add(group);
+        groups[0] = new THREE.Group();
+        scene.add(groups[0]);
 
-
-        boxArray = [];
         for (let x = 0; x <= xgrid; x++) {
             for (let y = 0; y <= ygrid; y++) {
 
@@ -122,12 +120,29 @@
                     (x - xgrid / 2) * 1.3,
                     (y - ygrid / 2) * 1.3
                 );
-                boxArray.push(box);
-                group.add(box);
+                groups[0].add(box);
                 box.dx = 0.01 * (0.5 - Math.random());
                 box.dy = 0.01 * (0.5 - Math.random());
             }
         }
+
+        groups[1] = new THREE.Group();
+        scene.add(groups[1]);
+
+        for (let i = 0; i < 100; i++) {
+            geometry = new THREE.BoxGeometry(1, 1, 1);
+            material = new THREE.MeshLambertMaterial(MATERIAL_PARAM);
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.scale.set(0.3, 0.3, 0.3)
+            const radian = (i / 100) * Math.PI * 2;
+            mesh.position.set(
+                30 * Math.cos(radian), // X座標
+                15, // Y座標
+                30 * Math.sin(radian) // Z座標
+            );
+            groups[1].add(mesh);
+        }
+
 
 
 
@@ -161,19 +176,22 @@
         requestAnimationFrame(render)
 
         raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(boxArray);
-        group.children.forEach((box) => {
+        const intersects = raycaster.intersectObjects(groups[0].children);
+        groups[0].children.forEach((box) => {
             box.position.z = Math.sin(time * box.dx) - 0.5
             if (intersects.length > 0 && box === intersects[0].object) {
                 wrapper.style.cursor = 'pointer'
                 box.material.color.setHex(0xff0000);
-                box.rotation.x = 0
-                box.rotation.y = 0
                 box.touched = true
             } else {
                 box.material.color.setHex(0xffffff);
             }
         });
+
+        groups[1].children.forEach((box, i) => {
+            box.position.y = 15 + (Math.abs(Math.sin(time * 0.0005 * i)) - 0.5) * 5
+        });
+
         if (intersects.length <= 0) {
             wrapper.style.cursor = 'auto'
         }
