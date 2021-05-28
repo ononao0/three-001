@@ -29,8 +29,8 @@
         aspect: window.innerWidth / window.innerHeight,
         near: 0.1,
         far: 10000.0,
-        x: 0.0,
-        y: -10.0,
+        x: -3.0,
+        y: -3.0,
         z: 15.0,
         lookAt: new THREE.Vector3(0.0, 0.0, 0.0),
     };
@@ -57,8 +57,8 @@
     function init(){
         scene = new THREE.Scene();
 
-        renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(new THREE.Color(RENDERER_PARAM.clearColor));
+        renderer = new THREE.WebGLRenderer({alpha: true});
+        renderer.setClearColor(new THREE.Color(RENDERER_PARAM.clearColor), 0.0);
         renderer.setSize(RENDERER_PARAM.width, RENDERER_PARAM.height);
         wrapper = document.querySelector('#webgl');
         wrapper.appendChild(renderer.domElement);
@@ -100,7 +100,7 @@
                 change_uvs(geometry, ux, uy, ox, oy)
                 box = new THREE.Mesh(geometry, material);
                 box.position.set(
-                    (x - xNum / 2) * step,
+                    (x - xNum / 2) * step + 3,
                     (y - yNum / 2) * step
                 );
                 group.add(box);
