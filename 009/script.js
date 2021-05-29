@@ -86,9 +86,9 @@
             const mesh = new THREE.Mesh(geometry, material);
             const radian = (i / 150) * Math.PI * 2;
             mesh.position.set(
-                50 * Math.cos(radian), // X座標
+                70 * Math.cos(radian), // X座標
                 -10, // Y座標
-                50 * Math.sin(radian) // Z座標
+                70 * Math.sin(radian) // Z座標
             );
             group.add(mesh);
         }
@@ -114,16 +114,6 @@
         // controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 
-    function resetMaterialOpacity() {
-        group.children.forEach((box, i) => {
-            gsap.to(box.material, {
-                opacity: 1,
-                duration: 0.3,
-                delay: i * 0.03
-            })
-        })
-    }
-
     function render(){
         time += 0.03
         requestAnimationFrame(render)
@@ -132,7 +122,16 @@
             gsap.to(box.material, {
                 opacity: 1,
                 duration: 1,
-                delay: i * 0.03
+                delay: i * 0.03,
+                ease: 'Power3.easeOut'
+            })
+            gsap.to(box.scale, {
+                x: 2,
+                y: 2,
+                z: 2,
+                duration: 1,
+                delay: i * 0.03,
+                ease: 'Power3.easeOut'
             })
         })
         // controls.update();
