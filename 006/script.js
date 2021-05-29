@@ -143,9 +143,6 @@
             groups[1].add(mesh);
         }
 
-
-
-
         ambientLight = new THREE.AmbientLight(
             AMBIENT_LIGHT_PARAM.color,
             AMBIENT_LIGHT_PARAM.intensity
