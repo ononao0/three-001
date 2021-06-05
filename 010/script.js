@@ -122,10 +122,10 @@
     }
 
     function render(){
-        time += 0.1
+        time += 4
         requestAnimationFrame(render)
         wingGroup.rotation.z = -time
-        wingGroup.rotation.y = Math.cos(-time / 10) * 1.5
+        wingGroup.rotation.y = Math.cos(-time / 400) * 1.5
         // controls.update();
         renderer.render(scene, camera);
     }
