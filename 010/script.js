@@ -21,7 +21,6 @@
         ambientLight,
         wrapper,
         wingGroup,
-        bodyGroup,
         time = 0;
 
     const CAMERA_PARAM = {
@@ -77,9 +76,7 @@
         camera.lookAt(CAMERA_PARAM.lookAt);
 
         wingGroup = new THREE.Group();
-        bodyGroup = new THREE.Group();
         scene.add(wingGroup);
-        scene.add(bodyGroup);
 
         wingMaterial = new THREE.MeshPhongMaterial(MATERIAL_PARAM);
         wingGeometry = new THREE.BoxGeometry(1.5, 8, 0.5);
@@ -98,7 +95,6 @@
         wingGroup.add(mesh2);
         wingGroup.add(mesh3);
         wingGroup.add(mesh4);
-        bodyGroup.add(wingGroup);
 
         directionalLight = new THREE.DirectionalLight(
             DIRECTIONAL_LIGHT_PARAM.color,
@@ -125,7 +121,7 @@
         time += 4
         requestAnimationFrame(render)
         wingGroup.rotation.z = -time
-        wingGroup.rotation.y = Math.cos(-time / 400) * 1.5
+        wingGroup.rotation.y = Math.sin(-time / 400) * 1.5
         // controls.update();
         renderer.render(scene, camera);
     }
