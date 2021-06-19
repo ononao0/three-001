@@ -138,9 +138,9 @@
         earth.position.set(EARTH_RANGE * sin, 0.0, EARTH_RANGE * cos);
 
         const vectorOfMoon = earth.position.clone();
-        sin = Math.sin(nowTime * 2);
-        cos = Math.cos(nowTime * 2);
-        moon.position.set(vectorOfMoon.x + cos, vectorOfMoon.y, vectorOfMoon.z + sin);
+        sin = Math.sin(nowTime * 3);
+        cos = Math.cos(nowTime * 3);
+        moon.position.set(vectorOfMoon.x + cos / 2, vectorOfMoon.y, vectorOfMoon.z + sin / 2);
 
         renderer.render(scene, camera);
     }
